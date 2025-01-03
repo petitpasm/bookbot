@@ -20,9 +20,7 @@ def main():
     print("---Begin report of the book---")
     print(f"{num_words} words in this book.")
     counted_letter = get_count_words(text)
-    print(counted_letter)
-    report = get_report(counted_letter)
-    print(report)
+    get_report(counted_letter)
 
 
 def get_book_text(path):
