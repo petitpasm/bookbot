@@ -21,6 +21,8 @@ def main():
     print(f"{num_words} words in this book.")
     counted_letter = get_count_words(text)
     print(counted_letter)
+    report = get_report(counted_letter)
+    print(report)
 
 
 def get_book_text(path):
@@ -43,6 +45,14 @@ def get_count_words(text):
             else:
                 counted_text[letter] = 1
     return counted_text
+
+
+def get_report(counted_text):
+    sorted_character_list = sorted(
+        counted_text.items(), key=lambda item: item[1], reverse=True
+    )
+    for i in range(0, len(sorted_character_list)):
+        print(f"You have {sorted_character_list[i][1]} '{sorted_character_list[i][0]}'")
 
 
 main()
