@@ -1,56 +1,47 @@
-# This was my primary response
-
-#    def main():
-#        with open("books/frankenstein.txt") as f:
-#            file_contents = f.read()
-#        words = file_contents.split()
-#        print(len(words))
-#
-#
-#    main()
-
-
-# A cleaner way, more programmer I'd say
-
-
 def main():
     book_path = "books/frankenstein.txt"
-    text = get_book_text(book_path)
-    num_words = get_num_words(text)
-    print("---Begin report of the book---")
-    print(f"{num_words} words in this book.")
-    counted_letter = get_count_words(text)
-    get_report(counted_letter)
+    text = get_book_path(book_path)
+    print("Beginning of your book report...")
+    words_num = get_word_num(text)
+    print("-" * 40)
+    print(f"In this book, there is {words_num} words.")
+    print(" " * 2)
+    characters_num = get_characters_num(text)
+    get_report(characters_num)
+    print("-" * 40)
+    print("End of report.")
 
 
-def get_book_text(path):
+def get_book_path(path):
     with open(path) as f:
-        return f.read()
+        book = f.read()
+    return book
 
 
-def get_num_words(text):
-    words = text.split()
-    return len(words)
+def get_word_num(text):
+    splitted_text = text.split()
+    return len(splitted_text)
 
 
-def get_count_words(text):
+def get_characters_num(text):
     lowered_text = text.lower()
-    counted_text = {}
-    for letter in lowered_text:
-        if letter.isalpha():
-            if letter in counted_text:
-                counted_text[letter] += 1
-            else:
-                counted_text[letter] = 1
-    return counted_text
+    splitted_text = lowered_text.split()
+    character_count = {}
+    for word in splitted_text:
+        for character in word:
+            if character.isalpha():
+                if character in character_count:
+                    character_count[character] += 1
+                else:
+                    character_count[character] = 1
+    return sorted(character_count.items(), key=lambda x: x[1], reverse=True)
 
 
-def get_report(counted_text):
-    sorted_character_list = sorted(
-        counted_text.items(), key=lambda item: item[1], reverse=True
-    )
-    for i in range(0, len(sorted_character_list)):
-        print(f"You have {sorted_character_list[i][1]} '{sorted_character_list[i][0]}'")
+def get_report(character_dict):
+    for i in range(0, len(character_dict)):
+        print(
+            f"The letter '{character_dict[i][0]}' appears {character_dict[i][1]} times."
+        )
 
 
 main()
